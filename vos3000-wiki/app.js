@@ -5,6 +5,7 @@ const pageTitle = document.querySelector("#pageTitle");
 const searchInput = document.querySelector("#searchInput");
 const summary = document.querySelector("#summary");
 const menuButton = document.querySelector("#menuButton");
+const assetVersion = "20260514-3";
 
 function renderNav(items = docs) {
   navList.innerHTML = `
@@ -74,11 +75,11 @@ function renderToc() {
 
 async function loadPageHtml(page) {
   try {
-    const response = await fetch(page.html);
+    const response = await fetch(`${page.html}?v=${assetVersion}`);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     return await response.text();
   } catch (error) {
-    return `<img src="${page.src}" alt="${page.label}" loading="lazy">`;
+    return `<div class="page-loading">页面加载失败，请刷新后重试。</div>`;
   }
 }
 
