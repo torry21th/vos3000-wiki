@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VOS3000 Web 接口 Wiki</title>
+  <link rel="stylesheet" href="./styles.css?v=20260514-1">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <strong>VOS3000</strong>
+      <span>PDF 版 Wiki</span>
+    </div>
+    <label class="search">
+      <span>搜索章节、接口、字段</span>
+      <input id="searchInput" type="search" placeholder="例如 CreateCustomer 或 创建账户">
+    </label>
+    <nav id="navList" class="nav-list" aria-label="章节目录"></nav>
+  </aside>
+  <main class="content">
+    <header class="topbar">
+      <button id="menuButton" class="icon-button" type="button" aria-label="打开目录">☰</button>
+      <div>
+        <p>文档版本 05 · 发布日期 2022-10-19 · HTML 版面复刻</p>
+        <h1 id="pageTitle">VOS3000 Web 接口说明书</h1>
+      </div>
+      <a class="pdf-link" href="../VOS3000_webinterface.pdf">原始 PDF</a>
+    </header>
+    <section id="summary" class="summary"></section>
+    <article id="article" class="article"></article>
+  </main>
+  <script src="./data.js?v=20260514-1"></script>
+  <script src="./app.js?v=20260514-1"></script>
+</body>
+</html>

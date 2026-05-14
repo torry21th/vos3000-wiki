@@ -1,0 +1,240 @@
+* { box-sizing: border-box; }
+:root {
+  color-scheme: light;
+  --ink: #1a242d;
+  --muted: #66727d;
+  --line: #d5dde3;
+  --panel: #f5f7f9;
+  --paper: #ffffff;
+  --accent: #0f766e;
+  --accent-soft: #e2f3ef;
+}
+body {
+  margin: 0;
+  color: var(--ink);
+  background: #eef2f5;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+.sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: 330px;
+  display: flex;
+  flex-direction: column;
+  background: #fbfcfd;
+  border-right: 1px solid var(--line);
+}
+.brand {
+  padding: 22px 20px 16px;
+  border-bottom: 1px solid var(--line);
+}
+.brand strong {
+  display: block;
+  font-size: 24px;
+  letter-spacing: 0;
+}
+.brand span {
+  color: var(--muted);
+  font-size: 14px;
+}
+.search {
+  display: grid;
+  gap: 8px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+}
+.search input {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 10px 12px;
+  font: inherit;
+  background: #fff;
+}
+.nav-list {
+  overflow: auto;
+  padding: 10px 10px 24px;
+}
+.nav-item {
+  display: grid;
+  grid-template-columns: 54px 1fr;
+  gap: 4px 8px;
+  padding: 9px 10px;
+  color: var(--ink);
+  text-decoration: none;
+  border-radius: 6px;
+}
+.nav-item:hover,
+.nav-item.active {
+  background: var(--accent-soft);
+}
+.nav-item span {
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 700;
+}
+.nav-item strong {
+  font-size: 14px;
+  font-weight: 600;
+}
+.nav-item small {
+  grid-column: 2;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+.level-2 { padding-left: 22px; }
+.content {
+  margin-left: 330px;
+  min-height: 100vh;
+}
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 38px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(255,255,255,0.96);
+}
+.topbar p {
+  margin: 0 0 4px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.topbar h1 {
+  margin: 0;
+  font-size: 23px;
+  letter-spacing: 0;
+}
+.icon-button {
+  display: none;
+  border: 1px solid var(--line);
+  background: #fff;
+  border-radius: 6px;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+}
+.pdf-link {
+  flex: 0 0 auto;
+  color: #fff;
+  background: var(--accent);
+  text-decoration: none;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 14px;
+}
+.summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin: 24px auto 0;
+  width: min(100% - 64px, 1120px);
+  border: 1px solid var(--line);
+  background: var(--line);
+}
+.summary div {
+  background: #fff;
+  padding: 13px 16px;
+}
+.summary span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+.summary strong {
+  overflow-wrap: anywhere;
+}
+.article {
+  width: min(100% - 64px, 1120px);
+  margin: 22px auto 72px;
+}
+.page-stack {
+  display: grid;
+  gap: 22px;
+}
+.pdf-page {
+  margin: 0;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper);
+  box-shadow: 0 12px 28px rgba(26,36,45,0.10);
+  overflow: auto;
+}
+.pdf-page figcaption {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.pdf-page img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  background: #fff;
+}
+.page-loading {
+  padding: 40px;
+  color: var(--muted);
+  text-align: center;
+}
+.pdf-html-inner {
+  position: relative;
+  margin: 0 auto;
+  background: #fff;
+  transform-origin: top left;
+}
+.pdf-html-inner p {
+  position: absolute;
+  margin: 0;
+  white-space: nowrap;
+}
+.pdf-html-inner span {
+  white-space: pre;
+}
+.pdf-html-inner img {
+  position: absolute;
+}
+.pdf-vector-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+@media (max-width: 900px) {
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform .2s ease;
+    z-index: 5;
+  }
+  body.nav-open .sidebar {
+    transform: translateX(0);
+  }
+  .content {
+    margin-left: 0;
+  }
+  .topbar {
+    padding: 14px 18px;
+  }
+  .icon-button {
+    display: inline-grid;
+    place-items: center;
+  }
+  .summary,
+  .article {
+    width: calc(100% - 24px);
+  }
+  .summary {
+    grid-template-columns: 1fr;
+  }
+  .pdf-page {
+    padding: 8px;
+  }
+}
