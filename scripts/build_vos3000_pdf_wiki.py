@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import html
 import re
 from pathlib import Path
 
@@ -13,7 +14,7 @@ PDF_PATH = ROOT / "VOS3000_webinterface.pdf"
 SITE_DIR = ROOT / "vos3000-wiki"
 PAGE_DIR = SITE_DIR / "assets" / "pages"
 HTML_PAGE_DIR = SITE_DIR / "assets" / "html-pages"
-VERSION = "20260514-1"
+VERSION = "20260514-3"
 
 HEADER_PATTERNS = [
     re.compile(r"^VOS3000\s*$"),
@@ -135,9 +136,23 @@ def export_pdf_html_pages() -> None:
     for index, page in enumerate(pdf, start=1):
         target = HTML_PAGE_DIR / f"page-{index:03d}.html"
         html = page.get_text("html")
+        html = remove_footer_notice(html)
         html = html.replace('id="page0"', f'data-pdf-page="{index}" class="pdf-html-inner"', 1)
         html = html.replace(">", f">\n{drawings_to_svg(page)}", 1)
         target.write_text(html, encoding="utf-8")
+
+
+def remove_footer_notice(page_html: str) -> str:
+    notices = ("昆石专有和保密信息", "版权所有 © 昆石网络技术有限公司")
+
+    def keep_or_remove(match: re.Match[str]) -> str:
+        paragraph = match.group(0)
+        text = re.sub(r"<[^>]+>", "", paragraph)
+        if any(notice in html.unescape(text) for notice in notices):
+            return ""
+        return paragraph
+
+    return re.sub(r"<p\b[^>]*>.*?</p>", keep_or_remove, page_html, flags=re.S)
 
 
 def color_to_css(color: tuple[float, float, float] | None) -> str:
